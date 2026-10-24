@@ -120,6 +120,65 @@ enum Notifier {
 }
 
 enum PDFMaker {
+    static let pageRect = CGRect(x: 0, y: 0, width: 595, height: 842)
+
+    static func attributed(_ sections: [(String, String)]) -> NSAttributedString {
+        let para = NSMutableParagraphStyle()
+        para.alignment = .right; para.baseWritingDirection = .rightToLeft; para.lineSpacing = 6
+        let h = UIFont(name: "IBMPlexSansArabic-Bold", size: 17) ?? .boldSystemFont(ofSize: 17)
+        let b = UIFont(name: "IBMPlexSansArabic-Regular", size: 12) ?? .systemFont(ofSize: 12)
+        let out = NSMutableAttributedString()
+        for (title, body) in sections {
+            out.append(NSAttributedString(string: title + "\n", attributes: [.font: h, .paragraphStyle: para, .foregroundColor: UIColor(red: 0.086, green: 0.204, blue: 0.471, alpha: 1)]))
+            out.append(NSAttributedString(string: body + "\n\n", attributes: [.font: b, .paragraphStyle: para, .foregroundColor: UIColor.black]))
+        }
+        return out
+    }
+
+    static func drawText(_ text: NSAttributedString, in ctx: UIGraphicsPDFRendererContext) {
+        let framesetter = CTFramesetterCreateWithAttributedString(text as CFAttributedString)
+        var start = 0
+        repeat {
+            ctx.beginPage()
+            let cg = ctx.cgContext
+            cg.saveGState()
+            cg.textMatrix = .identity
+            cg.translateBy(x: 0, y: pageRect.height); cg.scaleBy(x: 1, y: -1)
+            let path = CGPath(rect: pageRect.insetBy(dx: 40, dy: 50), transform: nil)
+            let frame = CTFramesetterCreateFrame(framesetter, CFRange(location: start, length: 0), path, nil)
+            CTFrameDraw(frame, cg)
+            let visible = CTFrameGetVisibleStringRange(frame)
+            start += visible.length
+            cg.restoreGState()
+            if visible.length == 0 { break }
+        } while start < text.length
+    }
+
+    /// One PDF: summary + timeline + letter + balagh text + every evidence photo on its own page.
+    static func caseFile(title: String, summary: String, timeline: String, letter: String, balagh: String, photos: [UIImage]) -> URL? {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("Haqqi-Case-File.pdf")
+        let text = attributed([(title, "تاريخ التصدير: " + Date().formatted(date: .long, time: .shortened)),
+                               ("الخلاصة", summary), ("المسار الزمني", timeline.isEmpty ? "-" : timeline),
+                               ("خطاب المطالبة", letter), ("نص البلاغ التجاري", balagh),
+                               ("الأدلة", photos.isEmpty ? "ما فيه صور مرفقة." : "\(photos.count) صورة في الصفحات التالية."),
+                               ("تنبيه", RulesEngine.disclaimer)])
+        do {
+            try UIGraphicsPDFRenderer(bounds: pageRect).writePDF(to: url) { ctx in
+                drawText(text, in: ctx)
+                for (i, img) in photos.enumerated() {
+                    ctx.beginPage()
+                    let cap = NSAttributedString(string: "دليل \(i + 1)", attributes: [.font: UIFont(name: "IBMPlexSansArabic-SemiBold", size: 14) ?? .systemFont(ofSize: 14)])
+                    cap.draw(at: CGPoint(x: pageRect.width - 40 - cap.size().width, y: 30))
+                    let box = pageRect.insetBy(dx: 40, dy: 70)
+                    let s = min(box.width / img.size.width, box.height / img.size.height)
+                    let size = CGSize(width: img.size.width * s, height: img.size.height * s)
+                    img.draw(in: CGRect(x: box.midX - size.width / 2, y: box.midY - size.height / 2, width: size.width, height: size.height))
+                }
+            }
+            return url
+        } catch { return nil }
+    }
+
     static func make(title: String, body: String, fileName: String) -> URL? {
         let page = CGRect(x: 0, y: 0, width: 595, height: 842)
         let renderer = UIGraphicsPDFRenderer(bounds: page)

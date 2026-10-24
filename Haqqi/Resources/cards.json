@@ -73,9 +73,9 @@
   {
    "id": 10,
    "title": "سياسة الاسترجاع",
-   "body": "إذا المحل عنده سياسة، الكل يلتزم فيها. إذا ما عنده، ما يقدر يمنعك.",
+   "body": "كل محل لازم يكون عنده سياسة استرجاع واضحة ومكتوبة بالعربي. اقرأها قبل تشتري.",
    "icon": "doc.text",
-   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/news_1833.aspx"
   },
   {
    "id": 11,
@@ -101,7 +101,7 @@
   {
    "id": 14,
    "title": "قطع الغيار",
-   "body": "الوكيل ملزم يوفّر القطع، والنادرة خلال مدة محددة.",
+   "body": "الوكيل ملزم يوفّر القطع، والنادرة خلال ١٤ يوم.",
    "icon": "gearshape.2",
    "url": "https://mc.gov.sa/en/mediacenter/News/Pages/23-06-14-03.aspx"
   },
@@ -139,6 +139,20 @@
    "body": "طلب التعويض عن الضرر يكون عند الجهة القضائية، مو الوزارة.",
    "icon": "building.columns",
    "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 20,
+   "title": "العطل الثالث",
+   "body": "إذا تكرر نفس العطل ثالث مرة داخل الضمان، لك بديل أو قيمته بعد خصم الاستعمال.",
+   "icon": "arrow.clockwise.circle",
+   "url": "https://mc.gov.sa/en/mediacenter/News/Pages/01-03-16-01.aspx"
+  },
+  {
+   "id": 21,
+   "title": "الفاتورة فيها سياسة الإرجاع",
+   "body": "فاتورة المتجر الإلكتروني لازم يكون فيها موجز لأحكام الاستبدال والإرجاع وموعد التوصيل.",
+   "icon": "doc.text",
+   "url": "https://mc.gov.sa/ar/Regulations/Pages/Details.aspx?hw=%D8%A7%D9%84%D8%A5%D9%84%D9%83%D8%AA%D8%B1%D9%88%D9%86%D9%8A%D8%A9&lawId=aaa4d4cf-ca57-41ff-a3f9-aa8500a3512c"
   }
  ]
 }

@@ -2,15 +2,19 @@ import SwiftUI
 import UIKit
 
 enum Theme {
-    static let navy = Color(red: 0.086, green: 0.204, blue: 0.471)
+    static let navy = Color(uiColor: UIColor { t in
+        t.userInterfaceStyle == .dark ? UIColor(red: 0.47, green: 0.62, blue: 0.95, alpha: 1)
+                                      : UIColor(red: 0.086, green: 0.204, blue: 0.471, alpha: 1)
+    })
     static let navyDeep = Color(red: 0.059, green: 0.125, blue: 0.314)
     static let gold = Color(red: 0.961, green: 0.706, blue: 0.157)
     static let green = Color(red: 0.086, green: 0.6, blue: 0.4)
     static let red = Color(red: 0.86, green: 0.2, blue: 0.2)
     static let orange = Color(red: 0.93, green: 0.5, blue: 0.1)
 
+    static let navyFixed = Color(red: 0.086, green: 0.204, blue: 0.471)
     static var heroGradient: LinearGradient {
-        LinearGradient(colors: [navyDeep, navy], startPoint: .topLeading, endPoint: .bottomTrailing)
+        LinearGradient(colors: [navyDeep, navyFixed], startPoint: .topLeading, endPoint: .bottomTrailing)
     }
     static let corner: CGFloat = 20
 }

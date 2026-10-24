@@ -6,6 +6,10 @@ public struct RuleSource: Codable, Hashable, Identifiable {
     public let article: String?
     public let url: String
     public let confidence: String
+    public let verified: Bool?
+    public let checked: String?
+    public let note: String?
+    public var isVerified: Bool { verified ?? false }
 }
 
 public struct Scenario: Codable, Hashable, Identifiable {

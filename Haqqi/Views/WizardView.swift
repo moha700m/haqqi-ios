@@ -3,6 +3,8 @@ import SwiftData
 
 struct WizardView: View {
     let scenario: Scenario
+    var autoVerdict: Bool = false
+    @State private var share: ShareItem?
     @Environment(\.modelContext) private var context
     @State private var eventDate = Date()
     @State private var used = false
@@ -58,6 +60,8 @@ struct WizardView: View {
                 if showVerdict, let v = engine.evaluate(input) {
                     VerdictCard(verdict: v)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
+                    Button { shareVerdict(v) } label: { Label("شارك النتيجة (صورة ونص)", systemImage: "square.and.arrow.up") }
+                        .buttonStyle(PrimaryButtonStyle(color: Theme.gold.opacity(0.95)))
                     if let saved = savedCase {
                         NavigationLink { CaseDetailView(record: saved) } label: {
                             Label("افتح القضية", systemImage: "folder.fill")
@@ -73,6 +77,20 @@ struct WizardView: View {
         .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: input) { _, _ in savedCase = nil }
+        .sheet(item: $share) { s in ShareSheet(items: s.items) }
+        .onAppear {
+            if autoVerdict {
+                eventDate = Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
+                showVerdict = true
+            }
+        }
+    }
+
+    @MainActor private func shareVerdict(_ v: Verdict) {
+        let text = VerdictShare.text(scenario: scenario, verdict: v)
+        var items: [Any] = [text]
+        if let img = VerdictShare.image(scenario: scenario, verdict: v) { items.insert(img, at: 0) }
+        share = ShareItem(items: items)
     }
 
     private func save(_ v: Verdict) {
@@ -166,6 +184,7 @@ struct SourceRow: View {
                 Text(source.law + (source.article.map { " - " + $0 } ?? "")).font(.plex(16, .semibold))
             }
             HStack {
+                if !source.isVerified { PillTag(text: "غير متحقق منه", color: Theme.orange) }
                 Text(confidenceText).font(.hCaption)
                     .padding(.horizontal, 8).padding(.vertical, 2)
                     .background(Capsule().fill((source.confidence == "high" ? Theme.green : Theme.orange).opacity(0.15)))

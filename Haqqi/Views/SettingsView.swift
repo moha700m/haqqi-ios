@@ -35,6 +35,7 @@ struct SettingsView: View {
                 }
                 Section("عن التطبيق") {
                     Button { onboarded = false } label: { Label("شوف الترحيب مرة ثانية", systemImage: "sparkles").font(.hBody) }
+                    NavigationLink { SourcesView() } label: { Label("المصادر الرسمية", systemImage: "building.columns").font(.hBody) }
                     Label("آخر مراجعة للأنظمة: \(RuleStore.shared.book.lastChecked)", systemImage: "calendar.badge.checkmark").font(.hCaption)
                     Label(RulesEngine.disclaimer, systemImage: "exclamationmark.bubble").font(.hCaption).foregroundStyle(Theme.orange)
                     Label("الخط: IBM Plex Sans Arabic (OFL)", systemImage: "textformat").font(.hCaption)

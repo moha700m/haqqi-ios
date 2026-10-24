@@ -10,7 +10,7 @@ struct HaqqiApp: App {
                 .environment(\.locale, Locale(identifier: "ar_SA"))
                 .tint(Theme.navy)
         }
-        .modelContainer(for: [CaseRecord.self, CaseEvent.self, EvidencePhoto.self])
+        .modelContainer(for: [CaseRecord.self, CaseEvent.self, EvidencePhoto.self, ChatMessage.self])
     }
 }
 
@@ -37,13 +37,45 @@ struct RootView: View {
 }
 
 struct MainTabs: View {
-    var body: some View {
-        TabView {
-            HomeView().tabItem { Label("حقّي", systemImage: "scalemass") }
-            CasesView().tabItem { Label("قضاياي", systemImage: "folder") }
-            LearnView().tabItem { Label("تعلّم", systemImage: "book") }
-            SettingsView().tabItem { Label("الإعدادات", systemImage: "gearshape") }
+    @State private var tab: String = {
+        switch UserDefaults.standard.string(forKey: "screen") ?? "" {
+        case "chat": return "chat"
+        case "cases": return "cases"
+        case "learn": return "learn"
+        case "settings": return "settings"
+        default: return "home"
         }
+    }()
+    @Environment(\.modelContext) private var context
+
+    var body: some View {
+        TabView(selection: $tab) {
+            HomeView(openChat: { tab = "chat" }).tabItem { Label("حقّي", systemImage: "scalemass") }.tag("home")
+            ChatView().tabItem { Label("اسأل", systemImage: "bubble.left.and.text.bubble.right") }.tag("chat")
+            CasesView().tabItem { Label("قضاياي", systemImage: "folder") }.tag("cases")
+            LearnView().tabItem { Label("تعلّم", systemImage: "book") }.tag("learn")
+            SettingsView().tabItem { Label("الإعدادات", systemImage: "gearshape") }.tag("settings")
+        }
+        .onAppear { DemoSeed.runIfRequested(context) }
+    }
+}
+
+/// Only used by CI screenshots (launch argument -seedDemo YES).
+enum DemoSeed {
+    static func runIfRequested(_ context: ModelContext) {
+        guard UserDefaults.standard.bool(forKey: "seedDemo") else { return }
+        let existing = (try? context.fetchCount(FetchDescriptor<CaseRecord>())) ?? 0
+        guard existing == 0 else { return }
+        let a = CaseRecord(scenarioID: "online_return", title: "أبغى أرجّع شي اشتريته أونلاين")
+        a.eventDate = Calendar.current.date(byAdding: .day, value: -3, to: Date())
+        a.storeName = "متجر نون"; a.product = "سماعة لاسلكية"
+        a.events.append(CaseEvent(stage: .open, note: "تقدر ترجّعه"))
+        let b = CaseRecord(scenarioID: "device_fault", title: "جهازي خرب (كهربائي/إلكتروني)")
+        b.eventDate = Calendar.current.date(byAdding: .month, value: -8, to: Date())
+        b.stage = .sent
+        b.events.append(CaseEvent(stage: .open)); b.events.append(CaseEvent(stage: .sent))
+        context.insert(a); context.insert(b)
+        try? context.save()
     }
 }
 

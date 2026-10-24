@@ -16,7 +16,7 @@ final class RulesEngineTests: XCTestCase {
     }
 
     func testAllScenariosLoadAndHaveSources() {
-        XCTAssertEqual(engine.book.scenarios.count, 8)
+        XCTAssertEqual(engine.book.scenarios.count, 9)
         for s in engine.book.scenarios {
             XCTAssertFalse(s.sources.isEmpty, s.id)
             for id in s.sources { XCTAssertNotNil(engine.book.source(id), id) }
@@ -67,10 +67,29 @@ final class RulesEngineTests: XCTestCase {
         XCTAssertEqual(n.status, .blocked)
     }
 
+    /// Only articles read verbatim from official texts may carry an article number.
     func testNoArticleNumbersInvented() {
-        for s in engine.book.sources where s.article != nil {
-            XCTAssertTrue(s.id.hasPrefix("ecom"), "Only E-Commerce Law articles are verified: \(s.id)")
+        let verifiedArticles: Set<String> = ["ecom13", "ecom14", "ecomEN", "ecomReg8"]
+        for s in engine.book.sources {
+            XCTAssertNotNil(s.checked, s.id)
+            XCTAssertNotNil(s.verified, s.id)
+            XCTAssertTrue(s.url.hasPrefix("https://"), s.id)
+            if s.article != nil {
+                XCTAssertTrue(verifiedArticles.contains(s.id), "Unverified article number: \(s.id)")
+                XCTAssertTrue(s.isVerified, s.id)
+            }
         }
+        // No scenario text may mention an article number not in the verified set.
+        for sc in engine.book.scenarios {
+            let t = sc.okText + sc.expiredText + sc.blockedText + sc.exceptions
+            XCTAssertFalse(t.contains("المادة"), "Article wording inside scenario text: \(sc.id)")
+        }
+    }
+
+    func testUnverifiedClaimsAreSoftened() {
+        let credit = engine.book.scenario("store_credit")!
+        XCTAssertTrue(credit.exceptions.contains("غير متحقق"))
+        XCTAssertFalse(engine.book.source("guidePDF")!.isVerified)
     }
 
     func testClaimLetterContainsCitation() {
@@ -84,6 +103,6 @@ final class RulesEngineTests: XCTestCase {
     func testCardsLoad() throws {
         let url = try XCTUnwrap(Bundle(for: RulesEngineTests.self).url(forResource: "cards", withExtension: "json"))
         let cards = try JSONDecoder().decode(CardBook.self, from: Data(contentsOf: url))
-        XCTAssertEqual(cards.cards.count, 20)
+        XCTAssertEqual(cards.cards.count, 22)
     }
 }

@@ -60,13 +60,27 @@ jobs:
           xcrun simctl bootstatus "$UDID" -b
           xcrun simctl install "$UDID" "$APP"
           mkdir -p shots
-          xcrun simctl launch "$UDID" com.moha700m.haqqi
-          sleep 6
-          xcrun simctl io "$UDID" screenshot shots/onboarding.png
-          xcrun simctl terminate "$UDID" com.moha700m.haqqi || true
-          xcrun simctl launch "$UDID" com.moha700m.haqqi -onboarded YES
-          sleep 6
-          xcrun simctl io "$UDID" screenshot shots/home.png
+          shot() { # name, args...
+            local name=$1; shift
+            xcrun simctl terminate "$UDID" com.moha700m.haqqi || true
+            xcrun simctl launch "$UDID" com.moha700m.haqqi "$@"
+            sleep 7
+            xcrun simctl io "$UDID" screenshot "shots/$name.png"
+          }
+          shot onboarding
+          shot home -onboarded YES -seedDemo YES
+          shot chat -onboarded YES -screen chat -demoChat YES
+          shot sources -onboarded YES -screen sources
+          shot calculator -onboarded YES -screen calculator
+          shot verdict -onboarded YES -screen verdict
+          shot cases -onboarded YES -screen cases
+          shot learn -onboarded YES -screen learn
+          shot settings -onboarded YES -screen settings
+          xcrun simctl ui "$UDID" appearance dark
+          shot home-dark -onboarded YES
+          shot chat-dark -onboarded YES -screen chat
+          shot verdict-dark -onboarded YES -screen verdict
+          xcrun simctl ui "$UDID" appearance light
           sips -g pixelWidth -g pixelHeight shots/*.png
       - uses: actions/upload-artifact@v4
         if: always()

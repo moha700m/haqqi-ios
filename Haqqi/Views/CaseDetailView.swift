@@ -194,6 +194,18 @@ struct CaseDetailView: View {
                 } label: { Label("شارك الخطاب PDF", systemImage: "square.and.arrow.up") }
                 .buttonStyle(PrimaryButtonStyle())
                 Button {
+                    let photos = record.photos.compactMap { UIImage(data: $0.data) }
+                    let timeline = record.events.sorted { $0.date < $1.date }
+                        .map { "• \($0.date.formatted(date: .abbreviated, time: .omitted)) — \($0.stage.label)\($0.note.isEmpty ? "" : ": " + $0.note)" }
+                        .joined(separator: "\n")
+                    let summary = VerdictShare.text(scenario: sc, verdict: v)
+                    if let url = PDFMaker.caseFile(title: "ملف القضية: " + record.title, summary: summary, timeline: timeline,
+                                                    letter: letter, balagh: balagh, photos: photos) {
+                        share = ShareItem(items: [url])
+                    }
+                } label: { Label("ملف القضية كامل PDF", systemImage: "doc.on.doc.fill") }
+                .buttonStyle(PrimaryButtonStyle(color: Theme.green))
+                Button {
                     UIPasteboard.general.string = balagh
                     Haptics.success()
                     share = ShareItem(items: [balagh])

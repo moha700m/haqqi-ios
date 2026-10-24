@@ -82,3 +82,15 @@ final class EvidencePhoto {
         self.data = data
     }
 }
+
+@Model
+final class ChatMessage {
+    var id: UUID = UUID()
+    var date: Date = Date()
+    var isUser: Bool = true
+    var text: String = ""
+    var engine: String = "local"
+    init(isUser: Bool, text: String, engine: String = "local") {
+        self.id = UUID(); self.date = Date(); self.isUser = isUser; self.text = text; self.engine = engine
+    }
+}
