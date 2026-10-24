@@ -85,6 +85,14 @@ jobs:
           cp -R build/Haqqi.xcarchive/Products/Applications/Haqqi.app Payload/
           /usr/libexec/PlistBuddy -c "Print :MinimumOSVersion" Payload/Haqqi.app/Info.plist
           /usr/libexec/PlistBuddy -c "Print :DTSDKName" Payload/Haqqi.app/Info.plist
+          P=Payload/Haqqi.app/Info.plist
+          plutil -p "$P"
+          plutil -extract UILaunchScreen raw "$P" >/dev/null 2>&1 || plutil -extract UILaunchScreen xml1 -o - "$P" || { echo "::error::UILaunchScreen missing"; exit 1; }
+          test "$(/usr/libexec/PlistBuddy -c 'Print :UILaunchStoryboardName' $P)" = "LaunchScreen" || { echo "::error::UILaunchStoryboardName missing"; exit 1; }
+          test -d Payload/Haqqi.app/LaunchScreen.storyboardc || { echo "::error::LaunchScreen.storyboardc missing"; exit 1; }
+          FAM=$(/usr/libexec/PlistBuddy -c 'Print :UIDeviceFamily' $P | tr -d ' \n')
+          echo "UIDeviceFamily=$FAM"; [ "$FAM" = "Array{1}" ] || { echo "::error::UIDeviceFamily not [1]"; exit 1; }
+          ls Payload/Haqqi.app/LaunchScreen.storyboardc
           zip -qry Haqqi.ipa Payload
           ls -la Haqqi.ipa
       - uses: actions/upload-artifact@v4
