@@ -1,0 +1,144 @@
+{
+ "cards": [
+  {
+   "id": 0,
+   "title": "سبعة أيام للإرجاع أونلاين",
+   "body": "تشتري من الإنترنت؟ عندك ٧ أيام بعد الاستلام ترجّع، إذا ما استخدمته.",
+   "icon": "shippingbox",
+   "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/360de590-0286-4fa5-a243-aa9100c31979/1"
+  },
+  {
+   "id": 1,
+   "title": "مين يدفع الإرجاع؟",
+   "body": "غالباً أنت تدفع تكلفة الإرجاع أونلاين، إلا إذا المتجر قال إنه يدفع.",
+   "icon": "dollarsign.circle",
+   "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/360de590-0286-4fa5-a243-aa9100c31979/1"
+  },
+  {
+   "id": 2,
+   "title": "أشياء ما ترجع أونلاين",
+   "body": "المفصّل لك، الكتب والمجلات، البرامج المستخدمة، وخدمات السكن والنقل والأكل.",
+   "icon": "xmark.seal",
+   "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/360de590-0286-4fa5-a243-aa9100c31979/1"
+  },
+  {
+   "id": 3,
+   "title": "تأخر التوصيل ١٥ يوم",
+   "body": "إذا تأخر الطلب أكثر من ١٥ يوم، تقدر تلغي وتسترد فلوسك.",
+   "icon": "clock.arrow.circlepath",
+   "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/360de590-0286-4fa5-a243-aa9100c31979/1"
+  },
+  {
+   "id": 4,
+   "title": "المتجر لازم يخبرك بالتأخير",
+   "body": "المتجر الإلكتروني لازم يقول لك إذا فيه تأخير متوقع.",
+   "icon": "bell",
+   "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/360de590-0286-4fa5-a243-aa9100c31979/1"
+  },
+  {
+   "id": 5,
+   "title": "ضمان سنتين للأجهزة",
+   "body": "الأجهزة الكهربائية والإلكترونية ضمانها سنتين على الأقل.",
+   "icon": "checkmark.shield",
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/26-02-24-02.aspx"
+  },
+  {
+   "id": 6,
+   "title": "الضمان يطول مع التأخير",
+   "body": "إذا تأخرت القطع أو الصيانة، الضمان يتمدد بنفس المدة.",
+   "icon": "hourglass",
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/26-02-24-02.aspx"
+  },
+  {
+   "id": 7,
+   "title": "سوء الاستخدام",
+   "body": "إذا الخراب بسببك (سوء استخدام)، الضمان ما يغطيه.",
+   "icon": "exclamationmark.triangle",
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/26-02-24-02.aspx"
+  },
+  {
+   "id": 8,
+   "title": "عبارة «لا ترد ولا تستبدل»",
+   "body": "هذي العبارة ممنوعة في المحلات والفواتير.",
+   "icon": "nosign",
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/news_1833.aspx"
+  },
+  {
+   "id": 9,
+   "title": "المعيب يرجع",
+   "body": "التاجر ملزم يرجع البضاعة المعيبة أو المغشوشة ويرد الثمن.",
+   "icon": "arrow.uturn.backward.circle",
+   "url": "https://mc.gov.sa/ar/mediacenter/News/Pages/news_1833.aspx"
+  },
+  {
+   "id": 10,
+   "title": "سياسة الاسترجاع",
+   "body": "إذا المحل عنده سياسة، الكل يلتزم فيها. إذا ما عنده، ما يقدر يمنعك.",
+   "icon": "doc.text",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 11,
+   "title": "سياسة واضحة",
+   "body": "سياسة الاسترجاع لازم تكون مكتوبة بلغة واضحة.",
+   "icon": "text.magnifyingglass",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 12,
+   "title": "أغراض صحية",
+   "body": "بعض الأغراض (أكل مكشوف، مستحضرات) ما ترجع، بشرط يقولون لك قبل.",
+   "icon": "cross.case",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 13,
+   "title": "الفاتورة حقك",
+   "body": "احتفظ بالفاتورة دائماً، هي أهم دليل.",
+   "icon": "doc.plaintext",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 14,
+   "title": "قطع الغيار",
+   "body": "الوكيل ملزم يوفّر القطع، والنادرة خلال مدة محددة.",
+   "icon": "gearshape.2",
+   "url": "https://mc.gov.sa/en/mediacenter/News/Pages/23-06-14-03.aspx"
+  },
+  {
+   "id": 15,
+   "title": "صوّر كل شي",
+   "body": "صوّر المنتج والعيب والكرتون من أول يوم.",
+   "icon": "camera",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 16,
+   "title": "اكتب التواريخ",
+   "body": "اكتب متى اشتريت ومتى استلمت ومتى اشتكيت.",
+   "icon": "calendar",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 17,
+   "title": "اشتكِ للتاجر أول",
+   "body": "ابدأ برسالة واضحة للتاجر، واحفظ نسخة.",
+   "icon": "envelope",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  },
+  {
+   "id": 18,
+   "title": "بلاغ تجاري",
+   "body": "إذا ما تجاوب التاجر، قدّم بلاغ لوزارة التجارة عبر تطبيق بلاغ تجاري.",
+   "icon": "megaphone",
+   "url": "https://mc.gov.sa"
+  },
+  {
+   "id": 19,
+   "title": "التعويض عند القضاء",
+   "body": "طلب التعويض عن الضرر يكون عند الجهة القضائية، مو الوزارة.",
+   "icon": "building.columns",
+   "url": "https://mc.gov.sa/en/guides/Documents/CustomerGuide.pdf"
+  }
+ ]
+}
