@@ -44,11 +44,13 @@ jobs:
           xcrun simctl list devices | grep "$UDID"
       - name: Unit tests
         run: |
-          set -o pipefail
+          set +e
           xcodebuild test -project Haqqi.xcodeproj -scheme Haqqi \
             -destination "id=${{ steps.sim.outputs.udid }}" \
-            CODE_SIGNING_ALLOWED=NO | tee test.log | grep -E "error:|Test Case|Executed|TEST" || true
-          test ${PIPESTATUS[0]} -eq 0
+            CODE_SIGNING_ALLOWED=NO > test.log 2>&1
+          rc=$?
+          grep -E "error:|Test Case.*(passed|failed)|Executed|TEST (SUCCEEDED|FAILED)" test.log | tail -80
+          exit $rc
       - name: Simulator screenshots
         run: |
           set -x

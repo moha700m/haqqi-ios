@@ -56,7 +56,10 @@ public enum ArabicText {
         var found = Set<String>()
         for (key, forms) in normalizedGroups {
             for f in forms where !f.isEmpty {
-                if n.contains(" " + f + " ") || n.contains(" " + f) || n.contains(" ال" + f) || n.contains("و" + f + " ") {
+                let a: String = " " + f
+                let b: String = " ال" + f
+                let c: String = "و" + f + " "
+                if n.contains(a) || n.contains(b) || n.contains(c) {
                     found.insert(key); break
                 }
             }
@@ -65,8 +68,16 @@ public enum ArabicText {
     }
 
     public static func tokens(_ text: String) -> Set<String> {
-        Set(normalize(text).split(separator: " ").map(String.init).filter { $0.count >= 3 }.map { t in
-            t.hasPrefix("ال") && t.count > 4 ? String(t.dropFirst(2)) : t
-        })
+        var out = Set<String>()
+        let words: [Substring] = normalize(text).split(separator: " ")
+        for w in words where w.count >= 3 {
+            let t = String(w)
+            if t.hasPrefix("ال") && t.count > 4 {
+                out.insert(String(t.dropFirst(2)))
+            } else {
+                out.insert(t)
+            }
+        }
+        return out
     }
 }
