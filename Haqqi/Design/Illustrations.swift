@@ -110,18 +110,21 @@ struct CountdownRing: View {
 
     var body: some View {
         ZStack {
-            Circle().stroke(color.opacity(0.15), lineWidth: 14)
+            Circle().stroke(color.opacity(0.15), lineWidth: max(6, size * 0.09))
             Circle()
                 .trim(from: 0, to: progress)
-                .stroke(color, style: StrokeStyle(lineWidth: 14, lineCap: .round))
+                .stroke(color, style: StrokeStyle(lineWidth: max(6, size * 0.09), lineCap: .round))
                 .rotationEffect(.degrees(-90))
             VStack(spacing: 0) {
                 Text(daysLeft < 0 ? "انتهت" : "\(daysLeft)")
-                    .font(.plex(daysLeft < 0 ? 26 : 40, .bold, relativeTo: .largeTitle))
+                    .font(.plex(size * (daysLeft < 0 ? 0.17 : 0.26), .bold, relativeTo: .largeTitle))
                     .foregroundStyle(color)
+                    .lineLimit(1).minimumScaleFactor(0.5)
                 Text(daysLeft < 0 ? "المهلة" : "يوم باقي")
-                    .font(.hCaption).foregroundStyle(.secondary)
+                    .font(.plex(max(10, size * 0.1), .medium)).foregroundStyle(.secondary)
+                    .lineLimit(1).minimumScaleFactor(0.6)
             }
+            .padding(size * 0.14)
         }
         .frame(width: size, height: size)
         .accessibilityElement(children: .combine)

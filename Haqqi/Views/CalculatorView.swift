@@ -46,7 +46,7 @@ struct CalculatorView: View {
                 }
                 ForEach(items) { it in
                     HStack(spacing: 14) {
-                        CountdownRing(daysLeft: it.daysLeft, total: max(1, it.key == "warranty" ? 730 : (it.key == "cancel15" ? 15 : 7)), size: 74)
+                        CountdownRing(daysLeft: it.daysLeft, total: max(1, it.key == "warranty" ? 730 : (it.key == "cancel15" ? 15 : 7)), size: 92)
                         VStack(alignment: .leading, spacing: 4) {
                             Text(it.title).font(.plex(16, .semibold)).fixedSize(horizontal: false, vertical: true)
                             Text(it.date.formatted(date: .long, time: .omitted)).font(.hBody)
