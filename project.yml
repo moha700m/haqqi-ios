@@ -42,7 +42,6 @@ targets:
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         LSRequiresIPhoneOS: true
         UILaunchScreen:
-          UIColorName: ""
           UIImageRespectsSafeAreaInsets: false
         UILaunchStoryboardName: LaunchScreen
         UIDeviceFamily: [1]
