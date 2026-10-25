@@ -35,9 +35,11 @@ struct SettingsView: View {
                 }
                 Section("عن التطبيق") {
                     Button { onboarded = false } label: { Label("شوف الترحيب مرة ثانية", systemImage: "sparkles").font(.hBody) }
-                    NavigationLink { SourcesView() } label: { Label("المصادر الرسمية", systemImage: "building.columns").font(.hBody) }
+                    NavigationLink { SourcesView() } label: { Label("مصادر المعلومات", systemImage: "book.closed").font(.hBody) }
                     Label("آخر مراجعة للأنظمة: \(RuleStore.shared.book.lastChecked)", systemImage: "calendar.badge.checkmark").font(.hCaption)
                     Label(RulesEngine.disclaimer, systemImage: "exclamationmark.bubble").font(.hCaption).foregroundStyle(Theme.orange)
+                    Label("تطبيق مستقل وغير تابع لأي جهة حكومية", systemImage: "info.circle").font(.hCaption)
+                    Link(destination: URL(string: "https://moha700m.github.io/haqqi-ios/privacy.html")!) { Label("سياسة الخصوصية", systemImage: "hand.raised").font(.hBody) }
                     Label("الخط: IBM Plex Sans Arabic (OFL)", systemImage: "textformat").font(.hCaption)
                 }
             }
