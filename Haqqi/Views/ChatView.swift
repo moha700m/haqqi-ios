@@ -65,7 +65,7 @@ struct ChatView: View {
             Text("اسألني عن حقّك").font(.hHeadline)
             Label(status.label, systemImage: status.onDevice ? "sparkles" : "lock.shield")
                 .font(.hCaption).foregroundStyle(.secondary).multilineTextAlignment(.center)
-            Text("أجاوب من مصادر رسمية موثقة فقط، وأقول لك إذا ما عندي معلومة.")
+            Text("أجاوب من الأنظمة المنشورة رسمياً فقط، وأقول لك إذا ما عندي معلومة.")
                 .font(.hCaption).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)

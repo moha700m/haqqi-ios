@@ -10,7 +10,7 @@ struct SourcesView: View {
                 HStack(spacing: 14) {
                     SpotIllustration(symbol: "building.columns.fill", tint: Theme.navy, size: 90)
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("مصادرنا الرسمية").font(.hHeadline)
+                        Text("الأنظمة والمصادر اللي نعتمد عليها").font(.hHeadline)
                         Text("كل قاعدة في التطبيق مربوطة بمصدرها. آخر مراجعة: \(book.lastChecked)")
                             .font(.hCaption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
                     }
